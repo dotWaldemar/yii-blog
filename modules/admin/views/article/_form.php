@@ -20,10 +20,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'date')->textInput() ?>
 
-    <?= $form->field($model, 'image')->fileInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'image')->fileInput(['maxlength' => true, 'required' => true]) ?>
     
     <?= $form->field($model, 'category')->dropDownList($categories, ['class' => 'form-control']) ?>
-
+    
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
