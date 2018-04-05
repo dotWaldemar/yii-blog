@@ -1,9 +1,16 @@
 <?php
 
 return [
+
+    // 'class' => 'yii\db\Connection',
+    // 'dsn' => 'mysql:host=localhost;dbname=yiiblog',
+    // 'username' => 'root',
+    // 'password' => '',
+    // 'charset' => 'utf8',
+    
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yiiblog',
-    'username' => 'root',
+    'dsn' => 'pgsql:host=localhost;port=5422;dbname=yiiblog',
+    'username' => 'postgres',
     'password' => '',
     'charset' => 'utf8',
 
