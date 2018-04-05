@@ -24,6 +24,8 @@ use yii\widgets\ActiveForm;
     
     <?= $form->field($model, 'category')->dropDownList($categories, ['class' => 'form-control']) ?>
     
+    <?php echo $form->checkBox($model,'label_name',array('value'=>1,'uncheckValue'=>0,'checked'=>($model->id=="")?true:$model->label_name),'style'=>'margin-top:7px;')); ?>
+    
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
