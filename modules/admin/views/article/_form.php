@@ -1,26 +1,30 @@
 <?php
     use yii\helpers\Html;
     use yii\widgets\ActiveForm;
-    use yii\bootstrap\DatePicker;
+    use dosamigos\datepicker\DatePicker;
 ?>
 
 <div class="article-form">
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-        <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
-        <?= $form->field($model, 'date')->textInput() ?>
-        <?= $form->field($model, 'image')->fileInput(['maxlength' => true, 'required' => true]) ?>
-        <?= $form->field($model, 'category')->dropDownList($categories, ['class' => 'form-control']) ?>
-        <?= $form->field($model, 'tags')->checkboxList($tags) ?>
         <?= DatePicker::widget([
             'model' => $model,
-            'attribute' => 'from_date',
-            'language' => 'ru',
-            'clientOptions' => [
-                'dateFormat' => 'yy-mm-dd',
-            ],
-        ]) ?>
+            'name' => 'date',
+            'attribute' => 'date',
+            'template' => '{addon}{input}',
+                'clientOptions' => [
+                    'autoclose' => true,
+                    'value' => $model->date,
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true
+                ]
+        ]);?>
+        <?= $form->field($model, 'image')->fileInput(['maxlength' => true]) ?>
+        <img src="/uploads/<?= $model->image ?>" alt="" width="200">
+        
+        <?= $form->field($model, 'category')->dropDownList($categories, ['class' => 'form-control']) ?>
+        <?= $form->field($model, 'tags')->checkboxList($tags) ?>
         <?php //var_dump($tags);die; ?>
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
