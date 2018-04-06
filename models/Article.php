@@ -120,7 +120,7 @@ class Article extends \yii\db\ActiveRecord
     
     public function getSelectedTags()
     {
-         $selectedIds = $this->getTags()->select('id')->asArray()->all();
+        $selectedIds = $this->getTags()->select('id')->asArray()->all();
         return ArrayHelper::getColumn($selectedIds, 'id');
     }
 
@@ -128,7 +128,7 @@ class Article extends \yii\db\ActiveRecord
     {
         if (is_array($tags))
         {
-            $this->clearCurrentTags();
+            $this->clearCurrentTags($this->id);
 
             foreach($tags as $tag_id)
             {
