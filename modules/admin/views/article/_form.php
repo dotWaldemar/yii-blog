@@ -8,22 +8,25 @@
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
         <?= DatePicker::widget([
             'model' => $model,
             'name' => 'date',
             'attribute' => 'date',
             'template' => '{addon}{input}',
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'value' => $model->date,
-                    'format' => 'yyyy-mm-dd',
-                    'todayHighlight' => true
-                ]
+            'clientOptions' => [
+                'autoclose' => true,
+                'value' => $model->date,
+                'format' => 'yyyy-mm-dd',
+                'todayHighlight' => true
+            ]
         ]);?>
         <?= $form->field($model, 'image')->fileInput(['maxlength' => true]) ?>
-        <img src="/uploads/<?= $model->image ?>" alt="" width="200">
+        
+        <?= $model->image != null ? Html::img('@web/uploads/' . $model->image, ['width' => '200']) : '' ?>
         
         <?= $form->field($model, 'category')->dropDownList($categories, ['class' => 'form-control']) ?>
+        
         <?= $form->field($model, 'tags')->checkboxList($tags) ?>
         <?php //var_dump($tags);die; ?>
         <div class="form-group">
