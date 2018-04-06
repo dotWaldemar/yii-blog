@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'categories' => $categories,
         'selectedCategory' => $selectedCategory,
+        'tags' => $tags,
     ]) ?>
 
 </div>

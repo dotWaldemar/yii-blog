@@ -64,6 +64,7 @@ class Article extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'status' => 'Status',
             'category_id' => 'Category ID',
+            'tag' => 'Tags',
         ];
     }
 

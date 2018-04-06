@@ -62,6 +62,23 @@ class ArticleController extends Controller
         ]);
     }
 
+    
+        public function actionSetTags($id)
+        {
+            $article = $this->findModel($id);
+            $selectedTags = $article->getSelectedTags(); //
+            $tags = ArrayHelper::map(Tag::find()->all(), 'id', 'title');
+            if(Yii::$app->request->isPost)
+            {
+                $article->saveTags($tags);
+                return $this->redirect(['view', 'id'=>$article->id]);
+            }
+            
+            return $this->render('tags', [
+                'selectedTags'=>$selectedTags,
+                'tags'=>$tags
+            ]);
+        }
     /**
      * Creates a new Article model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -73,23 +90,30 @@ class ArticleController extends Controller
         $uploadImage = new ImageUpload();
         $selectedCategory = $model->category->id;
         $categories = ArrayHelper::map(Category::find()->all(), 'id', 'title');
+        $tags = ArrayHelper::map(Tag::find()->all(), 'id', 'title');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            // File upload
             $file = UploadedFile::getInstance($model, 'image');
             $model->saveImage($uploadImage->uploadFile($file, $model->image));
 
+            // Categories
             $postDatas = Yii::$app->request->post('Article');
             $category = $postDatas['category'];
             $model->saveCategory($category);
 
+            // Tags
+            $tags = Yii::$app->request->post('tags');
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
         
         return $this->render('create', [
             'model' => $model,
-            'selectedCategory'=>$selectedCategory,
-            'categories'=>$categories
+            'selectedCategory'=> $selectedCategory,
+            'categories' => $categories,
+            'tags' => $tags,
         ]);
     }
 
@@ -144,21 +168,4 @@ class ArticleController extends Controller
     }
     
         
-        public function actionSetTags($id)
-        {
-            $article = $this->findModel($id);
-            $selectedTags = $article->getSelectedTags(); //
-            $tags = ArrayHelper::map(Tag::find()->all(), 'id', 'title');
-            if(Yii::$app->request->isPost)
-            {
-                $tags = Yii::$app->request->post('tags');
-                $article->saveTags($tags);
-                return $this->redirect(['view', 'id'=>$article->id]);
-            }
-            
-            return $this->render('tags', [
-                'selectedTags'=>$selectedTags,
-                'tags'=>$tags
-            ]);
-        }
 }
